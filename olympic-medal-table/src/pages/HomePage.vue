@@ -1,27 +1,26 @@
 <template>
   <div class="home-page">
     <h1 class="page-title">Olympic Medal Table</h1>
-
-    <!-- Input Section for Number of Countries -->
-    <div class="input-section">
+    
+    <div class="input-container">
       <label for="numCountries" class="input-label">Enter number of countries: </label>
-      <input 
-        v-model="numCountries" 
-        type="number" 
-        min="1" 
-        @input="loadCountries" 
-        class="input-number" 
+      <input
+        v-model="numCountries"
+        type="number"
+        min="1"
+        max="100"
+        class="input-number"
+        @input="loadCountries"
       />
     </div>
 
-    <!-- Countries List -->
     <div v-if="countries.length > 0" class="countries-list">
       <ul>
         <li v-for="country in countries" :key="country.id" class="country-item">
-          <router-link :to="'/country/' + country.id" class="country-link">
-            {{ country.name }}
-          </router-link>
-          - Gold: {{ country.gold }} | Silver: {{ country.silver }} | Bronze: {{ country.bronze }}
+          <router-link :to="'/country/' + country.id" class="country-link">{{ country.name }}</router-link>
+          - <span class="medal gold">Gold: {{ country.gold }}</span> |
+          <span class="medal silver">Silver: {{ country.silver }}</span> |
+          <span class="medal bronze">Bronze: {{ country.bronze }}</span>
         </li>
       </ul>
     </div>
@@ -55,43 +54,45 @@ export default {
 </script>
 
 <style scoped>
-/* General Styles for the Home Page */
+/* Global Styles */
 .home-page {
   font-family: 'Arial', sans-serif;
-  max-width: 900px;
-  margin: 40px auto;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .page-title {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 2.5rem;
   color: #333;
   text-align: center;
   margin-bottom: 20px;
 }
 
-/* Input Section */
-.input-section {
+.input-container {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
-  text-align: center;
 }
 
 .input-label {
   font-size: 1.1rem;
-  color: #555;
-  margin-right: 10px;
+  margin-bottom: 10px;
+  color: #444;
 }
 
 .input-number {
-  padding: 10px;
-  font-size: 1.1rem;
-  border-radius: 5px;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 4px;
   border: 1px solid #ccc;
-  width: 150px;
+  width: 60px;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 10px;
   transition: border-color 0.3s ease;
 }
 
@@ -100,7 +101,6 @@ export default {
   outline: none;
 }
 
-/* Countries List Styling */
 .countries-list {
   margin-top: 20px;
 }
@@ -108,7 +108,7 @@ export default {
 .country-item {
   background-color: #fff;
   padding: 12px;
-  margin: 10px 0;
+  margin-bottom: 10px;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   font-size: 1.1rem;
@@ -119,34 +119,27 @@ export default {
 
 .country-link {
   font-weight: bold;
-  color: #333;
+  color: #007bff;
   text-decoration: none;
-  transition: color 0.3s ease;
 }
 
 .country-link:hover {
-  color: #007bff;
+  text-decoration: underline;
 }
 
-.country-item span {
-  font-style: italic;
-  color: #777;
+.medal {
+  font-weight: bold;
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-  .home-page {
-    padding: 15px;
-  }
-  .page-title {
-    font-size: 1.8rem;
-  }
-  .input-number {
-    width: 120px;
-    font-size: 1rem;
-  }
-  .country-item {
-    font-size: 1rem;
-  }
+.gold {
+  color: #ffd700;
+}
+
+.silver {
+  color: #c0c0c0;
+}
+
+.bronze {
+  color: #cd7f32;
 }
 </style>
